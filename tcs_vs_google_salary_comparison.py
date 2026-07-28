@@ -17,18 +17,24 @@ inflation_rates_yearly = {
     2020: 6.62, 2021: 5.14, 2022: 6.68, 2023: 5.65, 2024: 4.98, 2025: 4.50
 }
 
-cumulative_salary = {2005: tcs_ninja[0]}
+google_cumulative_salary = {2005: google_india[0]}
 for year in range(2006, 2026):
-    cumulative_salary[year] = cumulative_salary[year - 1] * (1 + inflation_rates_yearly[year - 1] / 100)
+    google_cumulative_salary[year] = google_cumulative_salary[year - 1] * (1 + inflation_rates_yearly[year - 1] / 100)
 
-tcs_inflation_adjusted = [cumulative_salary[y] for y in years]
+google_inflation_adjusted = [google_cumulative_salary[y] for y in years]
 
+tcs_cumulative_salary = {2005: tcs_ninja[0]}
+for year in range(2006, 2026):
+    tcs_cumulative_salary[year] = tcs_cumulative_salary[year - 1] * (1 + inflation_rates_yearly[year - 1] / 100)
+
+tcs_inflation_adjusted = [tcs_cumulative_salary[y] for y in years]
 
 # Initialize Plot
 plt.figure(figsize=(15, 9))
 
 # Plot lines
 plt.plot(years, google_india, marker='o', color='#4285F4', linewidth=2.5, label='Google India (L3 Tech)')
+plt.plot(years, google_inflation_adjusted, marker='', color='gray', linewidth=2, linestyle=':', label='Inflation')
 plt.plot(years, tcs_ninja, marker='s', color='#1B365D', linewidth=2, label='TCS Ninja (Mass-Hire)')
 plt.plot(years, tcs_digital, marker='^', color='#FF9900', linewidth=2, linestyle='--', label='TCS Digital (Premium)')
 plt.plot(years, tcs_inflation_adjusted, marker='', color='gray', linewidth=2, linestyle=':', label='Inflation')
