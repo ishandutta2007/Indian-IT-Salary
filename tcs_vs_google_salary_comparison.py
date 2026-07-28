@@ -15,7 +15,7 @@ plt.figure(figsize=(15, 9))
 # Plot lines
 plt.plot(years, google_india, marker='o', color='#4285F4', linewidth=2.5, label='Google India (L3 Tech)')
 plt.plot(years, tcs_ninja, marker='s', color='#1B365D', linewidth=2, label='TCS Ninja (Mass-Hire)')
-# plt.plot(years, tcs_digital, marker='^', color='#FF9900', linewidth=2, linestyle='--', label='TCS Digital (Premium)')
+plt.plot(years, tcs_digital, marker='^', color='#FF9900', linewidth=2, linestyle='--', label='TCS Digital (Premium)')
 
 # Annotate ALL individual points on the Google India line
 for y, g in zip(years, google_india):
@@ -57,4 +57,5 @@ plt.legend(loc='upper left', frameon=True, shadow=True)
 
 # Layout adjustments and display
 plt.tight_layout()
+plt.savefig("assets/google_vs_tcs_plot.png")
 plt.show()
