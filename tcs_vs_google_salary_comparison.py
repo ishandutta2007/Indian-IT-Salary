@@ -9,6 +9,21 @@ tcs_ninja = [2.00, 2.55, 3.00, 3.05, 3.15, 3.20, 3.25, 3.40, 3.40, 3.40, 3.45]
 tcs_digital = [np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, 6.50, 6.75, 7.15, 7.25, 7.30]
 google_india = [5.25, 7.00, 9.00, 11.00, 13.50, 16.50, 21.00, 27.00, 30.50, 32.50, 35.00]
 
+# Real historical inflation rates for India (approx values, 2025 estimated)
+inflation_rates_yearly = {
+    2005: 4.25, 2006: 5.80, 2007: 6.37, 2008: 8.35, 2009: 10.88, 
+    2010: 12.00, 2011: 8.90, 2012: 9.30, 2013: 10.90, 2014: 6.63, 
+    2015: 4.87, 2016: 4.97, 2017: 3.33, 2018: 3.92, 2019: 3.75, 
+    2020: 6.62, 2021: 5.14, 2022: 6.68, 2023: 5.65, 2024: 4.98, 2025: 4.50
+}
+
+cumulative_salary = {2005: tcs_ninja[0]}
+for year in range(2006, 2026):
+    cumulative_salary[year] = cumulative_salary[year - 1] * (1 + inflation_rates_yearly[year - 1] / 100)
+
+tcs_inflation_adjusted = [cumulative_salary[y] for y in years]
+
+
 # Initialize Plot
 plt.figure(figsize=(15, 9))
 
@@ -16,6 +31,7 @@ plt.figure(figsize=(15, 9))
 plt.plot(years, google_india, marker='o', color='#4285F4', linewidth=2.5, label='Google India (L3 Tech)')
 plt.plot(years, tcs_ninja, marker='s', color='#1B365D', linewidth=2, label='TCS Ninja (Mass-Hire)')
 plt.plot(years, tcs_digital, marker='^', color='#FF9900', linewidth=2, linestyle='--', label='TCS Digital (Premium)')
+plt.plot(years, tcs_inflation_adjusted, marker='', color='gray', linewidth=2, linestyle=':', label='TCS 2005 Inflation Adjusted (Actual CPI)')
 
 # Annotate ALL individual points on the Google India line
 for y, g in zip(years, google_india):
